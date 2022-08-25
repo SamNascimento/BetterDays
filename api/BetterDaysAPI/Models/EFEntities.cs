@@ -5,9 +5,12 @@ namespace BetterDaysAPI.Models
 
     public class EFEntities : DbContext
     {
-        protected readonly IConfiguration _conf;
+        private readonly string _conn;
 
-        public EFEntities() { }
+        public EFEntities(string conn) 
+        {
+            _conn = conn;
+        }
 
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Diario> Diario { get; set; }
@@ -15,7 +18,7 @@ namespace BetterDaysAPI.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionstring = _conf.GetValue<string>("connection");
+            var connectionstring = _conn;
 
             if (!optionsBuilder.IsConfigured)
             {
@@ -46,6 +49,8 @@ namespace BetterDaysAPI.Models
                 entity.Property(e => e.senhaUsuario)
                     .HasColumnType("VARCHAR(30) ")
                     .IsRequired();
+
+                entity.HasKey(e => e.idUsuario);
             });
 
             modelBuilder.Entity<Diario>(entity =>
@@ -74,6 +79,8 @@ namespace BetterDaysAPI.Models
                     .WithMany(e => e.Diarios)
                     .HasForeignKey(e => e.idUsuario)
                     .HasConstraintName("fk_diario_usuario");
+
+                entity.HasKey(e => e.idDiario);
             });
 
             modelBuilder.Entity<ListaMetas>(entity =>
@@ -84,6 +91,10 @@ namespace BetterDaysAPI.Models
 
                 entity.Property(e => e.idUsuario)
                     .HasColumnType("BIGINT")
+                    .IsRequired();
+
+                entity.Property(e => e.dataRegistro)
+                    .HasColumnType("DATETIME")
                     .IsRequired();
 
                 entity.Property(e => e.titulo)
@@ -103,6 +114,8 @@ namespace BetterDaysAPI.Models
                     .WithMany(e => e.ListaMetas)
                     .HasForeignKey(e => e.idUsuario)
                     .HasConstraintName("fk_listaMetas_usuario");
+
+                entity.HasKey(e => e.idMetas);
             });
         }
     }

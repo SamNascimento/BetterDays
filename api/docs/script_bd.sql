@@ -26,6 +26,7 @@ CREATE TABLE diario (
 CREATE TABLE listaMetas (
 	idMetas         BIGINT 	    NOT NULL AUTO_INCREMENT,
 	idUsuario       BIGINT 	    NOT NULL,
+    dataRegistro    DATETIME    NOT NULL,
 	titulo 	        VARCHAR(30) NOT NULL,
 	descricao       TEXT 	    NOT NULL,
 	isConcluido     TINYINT     NOT NULL DEFAULT 0, 
