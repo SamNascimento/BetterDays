@@ -14,7 +14,7 @@ namespace BetterDaysAPI.Models
 
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Diario> Diario { get; set; }
-        public virtual DbSet<ListaMetas> ListaMeta { get; set; }
+        public virtual DbSet<ListaMetas> ListaMetas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

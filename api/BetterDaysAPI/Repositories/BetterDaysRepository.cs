@@ -16,11 +16,23 @@ namespace BetterDaysAPI.Repositories
 
         #region Usuário
 
+        public Usuario ObterUsuarioPorId(long idUsuario)
+        {
+            var usuario = _ef.Usuario
+                .FirstOrDefault(u => u.idUsuario == idUsuario);
+
+            if (usuario == null)
+            {
+                throw new Exception("Usuário não existe");
+            }
+
+            return usuario;
+        }
+
         public Usuario LogarUsuario(UsuarioPost dados)
         {
             var usuario = _ef.Usuario
-                .Where(u => u.loginUsuario == dados.loginUsuario && u.senhaUsuario == dados.senhaUsuario)
-                .Single();
+                .FirstOrDefault(u => u.loginUsuario == dados.loginUsuario && u.senhaUsuario == dados.senhaUsuario);
 
             if (usuario == null)
                 throw new Exception("Login não encontrado");
@@ -33,7 +45,9 @@ namespace BetterDaysAPI.Repositories
             if (dados.nome == null)
                 throw new Exception("Todos os dados são necessários");
 
-            var temLoginUnico = _ef.Usuario.Where(u => u.loginUsuario == dados.loginUsuario) == null;
+            var loginExistente = _ef.Usuario.FirstOrDefault(u => u.loginUsuario == dados.loginUsuario);
+
+            var temLoginUnico = loginExistente == null;
 
             if (!temLoginUnico)
                 throw new Exception("Nome de usuário já está em uso");
@@ -58,8 +72,7 @@ namespace BetterDaysAPI.Repositories
         public Diario ObterAnotacaoDiarioPorId(long idDiario)
         {
             var anotacao = _ef.Diario
-                .Where(d => d.idDiario == idDiario)
-                .First();
+                .FirstOrDefault(d => d.idDiario == idDiario);
 
             if (anotacao == null)
                 throw new Exception("Anotação não encontrada");
@@ -78,12 +91,14 @@ namespace BetterDaysAPI.Repositories
 
         public Diario CriarAnotacaoDiario(DiarioPost dados)
         {
-            if (dados.idUsuario == null)
-                throw new Exception("Falha ao encontrar o idUsuario");
+            if (dados.idUsuario == null || dados.titulo == null || dados.nota == null)
+                throw new Exception("Todos os dados são necessário");
+
+            var usuario = ObterUsuarioPorId(dados.idUsuario.GetValueOrDefault());
 
             var anotacao = new Diario
             {
-                idUsuario    = dados.idUsuario.GetValueOrDefault(),
+                Usuario      = usuario,
                 dataRegistro = DateTime.Now,
                 titulo       = dados.titulo,
                 nota         = dados.nota
@@ -122,9 +137,8 @@ namespace BetterDaysAPI.Repositories
 
         public ListaMetas ObterMetaPorId(long idMeta)
         {
-            var meta = _ef.ListaMeta
-                .Where(d => d.idMetas == idMeta)
-                .First();
+            var meta = _ef.ListaMetas
+                .FirstOrDefault(d => d.idMetas == idMeta);
 
             if (meta == null)
                 throw new Exception("Meta não encontrada");
@@ -134,7 +148,7 @@ namespace BetterDaysAPI.Repositories
 
         public IEnumerable<ListaMetas> ObterListaMetas(long idUsuario)
         {
-            var metas = _ef.ListaMeta
+            var metas = _ef.ListaMetas
                 .Where(d => d.idUsuario == idUsuario)
                 .OrderByDescending(d => d.dataRegistro);
 
@@ -143,19 +157,21 @@ namespace BetterDaysAPI.Repositories
 
         public ListaMetas CriarMeta(MetaPost dados)
         {
-            if (dados.idUsuario == null)
-                throw new Exception("Falha ao encontrar o idUsuario");
+            if (dados.idUsuario == null || dados.titulo == null || dados.descricao == null)
+                throw new Exception("Todos os dados são necessário");
+
+            var usuario = ObterUsuarioPorId(dados.idUsuario.GetValueOrDefault());
 
             var meta = new ListaMetas
             {
-                idUsuario    = dados.idUsuario.GetValueOrDefault(),
+                Usuario      = usuario,
                 dataRegistro = DateTime.Now,
                 titulo       = dados.titulo,
                 descricao    = dados.descricao,
                 isConcluido  = false
             };
 
-            _ef.ListaMeta.Add(meta);
+            _ef.ListaMetas.Add(meta);
             _ef.SaveChanges();
 
             return meta;
@@ -168,7 +184,7 @@ namespace BetterDaysAPI.Repositories
             meta.titulo    = dados.titulo;
             meta.descricao = dados.descricao;
 
-            _ef.ListaMeta.Update(meta);
+            _ef.ListaMetas.Update(meta);
             _ef.SaveChanges();
 
             return meta;
@@ -180,11 +196,10 @@ namespace BetterDaysAPI.Repositories
 
             if (meta.isConcluido == false)
                 meta.isConcluido = true;
-
-            if (meta.isConcluido == true)
+            else 
                 meta.isConcluido = false;
 
-            _ef.ListaMeta.Update(meta);
+            _ef.ListaMetas.Update(meta);
             _ef.SaveChanges();
 
             return meta;
@@ -194,7 +209,7 @@ namespace BetterDaysAPI.Repositories
         {
             var meta = ObterMetaPorId(idMeta);
 
-            _ef.ListaMeta.Remove(meta);
+            _ef.ListaMetas.Remove(meta);
             _ef.SaveChanges();
         }
 

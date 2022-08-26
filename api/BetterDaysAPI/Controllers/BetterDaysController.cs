@@ -1,3 +1,4 @@
+using BetterDaysAPI.Helpers.Dto;
 using BetterDaysAPI.Helpers.Post;
 using BetterDaysAPI.Models;
 using BetterDaysAPI.Repositories;
@@ -29,7 +30,9 @@ namespace BetterDaysAPI.Controllers
 
             var usuario = rep.CadastrarUsuario(dados);
 
-            return Ok(usuario);
+            var dto = new UsuarioDto(usuario);
+
+            return Ok(dto);
         }
 
         /// <summary>
@@ -44,7 +47,9 @@ namespace BetterDaysAPI.Controllers
 
             var usuario = rep.LogarUsuario(dados);
 
-            return Ok(usuario);
+            var dto = new UsuarioDto(usuario);
+
+            return Ok(dto);
         }
 
         #endregion
@@ -63,7 +68,9 @@ namespace BetterDaysAPI.Controllers
 
             var anotacao = rep.ObterAnotacaoDiarioPorId(idDiario);
 
-            return Ok(anotacao);
+            var dto = new DiarioDto(anotacao);
+
+            return Ok(dto);
         }
 
         /// <summary>
@@ -78,7 +85,9 @@ namespace BetterDaysAPI.Controllers
 
             var anotacoesDiario = rep.ObterAnotacoesDiario(idUsuario);
 
-            return Ok(anotacoesDiario);
+            var dto = anotacoesDiario.Select(a => new DiarioDto(a));
+
+            return Ok(dto);
         }
 
         /// <summary>
@@ -93,7 +102,9 @@ namespace BetterDaysAPI.Controllers
 
             var anotacao = rep.CriarAnotacaoDiario(dados);
 
-            return Ok(anotacao);
+            var dto = new DiarioDto(anotacao);
+
+            return Ok(dto);
         }
 
         /// <summary>
@@ -109,7 +120,9 @@ namespace BetterDaysAPI.Controllers
 
             var anotacao = rep.EditarAnotacaoDiario(dados, idDiario);
 
-            return Ok(anotacao);
+            var dto = new DiarioDto(anotacao);
+
+            return Ok(dto);
         }
 
         /// <summary>
@@ -143,7 +156,9 @@ namespace BetterDaysAPI.Controllers
 
             var meta = rep.ObterMetaPorId(idMeta);
 
-            return Ok(meta);
+            var dto = new ListaMetasDto(meta);
+
+            return Ok(dto);
         }
 
         /// <summary>
@@ -158,7 +173,9 @@ namespace BetterDaysAPI.Controllers
 
             var listaMetas = rep.ObterListaMetas(idUsuario);
 
-            return Ok(listaMetas);
+            var dto = listaMetas.Select(l => new ListaMetasDto(l));
+
+            return Ok(dto);
         }
 
         /// <summary>
@@ -173,7 +190,9 @@ namespace BetterDaysAPI.Controllers
 
             var meta = rep.CriarMeta(dados);
 
-            return Ok(meta);
+            var dto = new ListaMetasDto(meta);
+
+            return Ok(dto);
         }
 
         /// <summary>
@@ -189,7 +208,9 @@ namespace BetterDaysAPI.Controllers
 
             var meta = rep.EditarMeta(dados, idMeta);
 
-            return Ok(meta);
+            var dto = new ListaMetasDto(meta);
+
+            return Ok(dto);
         }
 
         [HttpPut("meta/changeconclusao/{idMeta:long}")]
@@ -199,7 +220,9 @@ namespace BetterDaysAPI.Controllers
 
             var meta = rep.AlterarEstadoConclusao(idMeta);
 
-            return Ok(meta);
+            var dto = new ListaMetasDto(meta);
+
+            return Ok(dto);
         }
 
         /// <summary>
