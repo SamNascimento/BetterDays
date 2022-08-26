@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/samuel/Documentos/BetterDays/api/BetterDaysAPI/BetterDaysAPI.csproj": {}
+    "C:\\Users\\Desktop\\Documents\\Estudos\\Flutter\\BetterDays\\api\\BetterDaysAPI\\BetterDaysAPI.csproj": {}
   },
   "projects": {
-    "/home/samuel/Documentos/BetterDays/api/BetterDaysAPI/BetterDaysAPI.csproj": {
+    "C:\\Users\\Desktop\\Documents\\Estudos\\Flutter\\BetterDays\\api\\BetterDaysAPI\\BetterDaysAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/samuel/Documentos/BetterDays/api/BetterDaysAPI/BetterDaysAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Desktop\\Documents\\Estudos\\Flutter\\BetterDays\\api\\BetterDaysAPI\\BetterDaysAPI.csproj",
         "projectName": "BetterDaysAPI",
-        "projectPath": "/home/samuel/Documentos/BetterDays/api/BetterDaysAPI/BetterDaysAPI.csproj",
-        "packagesPath": "/home/samuel/.nuget/packages/",
-        "outputPath": "/home/samuel/Documentos/BetterDays/api/BetterDaysAPI/obj/",
+        "projectPath": "C:\\Users\\Desktop\\Documents\\Estudos\\Flutter\\BetterDays\\api\\BetterDaysAPI\\BetterDaysAPI.csproj",
+        "packagesPath": "C:\\Users\\Desktop\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Desktop\\Documents\\Estudos\\Flutter\\BetterDays\\api\\BetterDaysAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/samuel/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Desktop\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -57,16 +59,11 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.8, 6.0.8]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -75,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.108/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
