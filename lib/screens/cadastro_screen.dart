@@ -66,6 +66,9 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
                     validator: (String? texto) {
                       if (texto != null && texto.isEmpty) {
                         return 'Senha é obrigatória';

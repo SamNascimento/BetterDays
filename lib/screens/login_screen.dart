@@ -54,6 +54,9 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: TextFormField(
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
                   validator: (String? texto) {
                     if (texto != null && texto.isEmpty) {
                       return 'Senha é obrigatória';
