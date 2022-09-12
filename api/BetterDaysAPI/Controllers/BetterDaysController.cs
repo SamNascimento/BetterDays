@@ -16,10 +16,10 @@ namespace BetterDaysAPI.Controllers
             _conf = configuration;
         }
 
-        #region Usu·rio
+        #region Usu√°rio
 
         /// <summary>
-        /// Cadastra um usu·rio atravÈs da lista de cadastro
+        /// Cadastra um usu√°rio atrav√©s da lista de cadastro
         /// </summary>
         /// <param name="dados"></param>
         /// <returns></returns>
@@ -36,7 +36,7 @@ namespace BetterDaysAPI.Controllers
         }
 
         /// <summary>
-        /// Loga-se com um usu·rio caso as credenciais estejam certas
+        /// Loga-se com um usu√°rio caso as credenciais estejam certas
         /// </summary>
         /// <param name="dados"></param>
         /// <returns></returns>
@@ -54,10 +54,10 @@ namespace BetterDaysAPI.Controllers
 
         #endregion
 
-        #region Di·rio
+        #region Di√°rio
 
         /// <summary>
-        /// ObtÈm os detalhes de uma ˙nica anotaÁ„o
+        /// Obt√©m os detalhes de uma √∫nica anota√ß√£o
         /// </summary>
         /// <param name="idDiario"></param>
         /// <returns></returns>
@@ -74,9 +74,9 @@ namespace BetterDaysAPI.Controllers
         }
 
         /// <summary>
-        /// ObtÈm as anotaÁıes de um usu·rio
+        /// Obt√©m as anota√ß√µes de um usu√°rio
         /// </summary>
-        /// <param name="idUsuario">Id do usu·rio logado</param>
+        /// <param name="idUsuario">Id do usu√°rio logado</param>
         /// <returns></returns>
         [HttpGet("diario/usuario/{idUsuario:long}")]
         public IActionResult ObterAnotacoesDiario(long idUsuario)
@@ -91,7 +91,7 @@ namespace BetterDaysAPI.Controllers
         }
 
         /// <summary>
-        /// Cria uma anotaÁ„o no di·rio do usu·rio em quest„o
+        /// Cria uma anota√ß√£o no di√°rio do usu√°rio em quest√£o
         /// </summary>
         /// <param name="dados"></param>
         /// <returns></returns>
@@ -108,10 +108,10 @@ namespace BetterDaysAPI.Controllers
         }
 
         /// <summary>
-        /// Edita o registro de uma anotaÁ„o especÌfica
+        /// Edita o registro de uma anota√ß√£o espec√≠fica
         /// </summary>
-        /// <param name="dados"> Dados que ser„o passados para ediÁ„o </param>
-        /// <param name="idDiario"> Id da anotaÁ„o que ser· editada </param>
+        /// <param name="dados"> Dados que ser√£o passados para edi√ß√£o </param>
+        /// <param name="idDiario"> Id da anota√ß√£o que ser√° editada </param>
         /// <returns></returns>
         [HttpPost("diario/editar/{idDiario:long}")]
         public IActionResult EditarAnotacao(DiarioPost dados, long idDiario)
@@ -126,7 +126,7 @@ namespace BetterDaysAPI.Controllers
         }
 
         /// <summary>
-        /// Exclui o registro no banco daquela anotaÁ„o
+        /// Exclui o registro no banco daquela anota√ß√£o
         /// </summary>
         /// <param name="idDiario"></param>
         /// <returns></returns>
@@ -145,7 +145,7 @@ namespace BetterDaysAPI.Controllers
         #region Lista de Metas
 
         /// <summary>
-        /// ObtÈm os detalhes de uma ˙nica meta
+        /// Obt√©m os detalhes de uma √∫nica meta
         /// </summary>
         /// <param name="idMeta"></param>
         /// <returns></returns>
@@ -162,9 +162,9 @@ namespace BetterDaysAPI.Controllers
         }
 
         /// <summary>
-        /// ObtÈm as metas de um usu·rio
+        /// Obt√©m as metas de um usu√°rio
         /// </summary>
-        /// <param name="idUsuario">Id do usu·rio logado</param>
+        /// <param name="idUsuario">Id do usu√°rio logado</param>
         /// <returns></returns>
         [HttpGet("meta/usuario/{idUsuario:long}")]
         public IActionResult ObterListaMetas(long idUsuario)
@@ -179,7 +179,7 @@ namespace BetterDaysAPI.Controllers
         }
 
         /// <summary>
-        /// Cria uma meta para o usu·rio em quest„o
+        /// Cria uma meta para o usu√°rio em quest√£o
         /// </summary>
         /// <param name="dados"></param>
         /// <returns></returns>
@@ -196,9 +196,9 @@ namespace BetterDaysAPI.Controllers
         }
 
         /// <summary>
-        /// Edita o registro de uma meta especÌfica
+        /// Edita o registro de uma meta espec√≠fica
         /// </summary>
-        /// <param name="dados"> Dados que ser„o repassados para ediÁ„o </param>
+        /// <param name="dados"> Dados que ser√£o repassados para edi√ß√£o </param>
         /// <param name="idMeta"> Id da meta editada </param>
         /// <returns></returns>
         [HttpPost("meta/editar/{idMeta:long}")]
@@ -213,6 +213,11 @@ namespace BetterDaysAPI.Controllers
             return Ok(dto);
         }
 
+        /// <summary>
+        /// Troca o status de conclus√£o de uma meta
+        /// </summary>
+        /// <param name="idMeta"></param>
+        /// <returns></returns>
         [HttpPut("meta/changeconclusao/{idMeta:long}")]
         public IActionResult EditarStatusConclusao(long idMeta)
         {
