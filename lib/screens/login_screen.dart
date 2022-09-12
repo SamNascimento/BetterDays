@@ -78,11 +78,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (_formKey.currentState!.validate()){}
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFF5BB319),
+                    backgroundColor: const Color(0xFF5BB319),
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                        const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                     textStyle: const TextStyle(
-                      fontSize: 30,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),

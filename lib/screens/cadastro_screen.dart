@@ -85,7 +85,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: 80,
+                    top: 60,
                     bottom: 20,
                   ),
                   child: ElevatedButton(
@@ -93,11 +93,11 @@ class _CadastroScreenState extends State<CadastroScreen> {
                       if (_formKey.currentState!.validate()){}
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFF5BB319),
+                      backgroundColor: const Color(0xFF5BB319),
                       padding:
-                          const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                          const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                       textStyle: const TextStyle(
-                        fontSize: 30,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),

@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Better Days',
-      home: LoginScreen(),
+      home: const LoginScreen(),
       routes: {
         '/cadastro': (context) => const CadastroScreen(),
       },
