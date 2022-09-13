@@ -26,7 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+    
 // Pega os arquivos da pasta wwwroot como estáticos
 app.UseStaticFiles();
 

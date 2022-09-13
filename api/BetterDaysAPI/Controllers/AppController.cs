@@ -1,8 +1,10 @@
+using BetterDaysAPI.Helpers.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BetterDaysAPI.Controllers
 {
     [ApiController]
+    [ApiExceptionFilter]
     [Route("")]
     public class AppController : ControllerBase
     {
