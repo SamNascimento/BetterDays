@@ -27,12 +27,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Se não estiver em ambiente de desenvolvimento ele habilita o redirecionamento HTTPS
-if (!app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection();
-}
-
 // Pega os arquivos da pasta wwwroot como estáticos
 app.UseStaticFiles();
 
