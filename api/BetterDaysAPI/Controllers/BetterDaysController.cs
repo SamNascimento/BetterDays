@@ -1,4 +1,5 @@
 using BetterDaysAPI.Helpers.Dto;
+using BetterDaysAPI.Helpers.Filters;
 using BetterDaysAPI.Helpers.Post;
 using BetterDaysAPI.Models;
 using BetterDaysAPI.Repositories;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BetterDaysAPI.Controllers
 {
     [ApiController]
+    [ApiExceptionFilter]
     [Route("api")]
     public class BetterDaysController : ControllerBase 
     {
