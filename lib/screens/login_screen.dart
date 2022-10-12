@@ -1,3 +1,5 @@
+import 'package:better_days/http/webclients/usuario_webclient.dart';
+import 'package:better_days/models/usuario.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +13,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController loginController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
+
+  final UsuarioWebClient _webClient = UsuarioWebClient();
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -75,7 +79,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(12.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()){}
+                    if (_formKey.currentState!.validate()){
+                      final String usuario = loginController.text;
+                      final String senha = senhaController.text;
+
+                      final Usuario user = Usuario(loginUsuario: usuario, senhaUsuario: senha);
+
+                      _webClient.logar(user);
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF5BB319),

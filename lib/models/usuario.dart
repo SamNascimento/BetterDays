@@ -18,7 +18,7 @@ class Usuario {
       : idUsuario = json['idUsuario'],
         nome = json['nome'],
         loginUsuario = json['loginUsuario'],
-        senhaUsuario = json['senhaUsuario'];
+        senhaUsuario = '';
 
   Map<String, dynamic> toJson() => {
         'nome': nome,

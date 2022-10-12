@@ -1,3 +1,5 @@
+import 'package:better_days/http/webclients/usuario_webclient.dart';
+import 'package:better_days/models/usuario.dart';
 import 'package:flutter/material.dart';
 
 class CadastroScreen extends StatefulWidget {
@@ -11,6 +13,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
   TextEditingController nomeController = TextEditingController();
   TextEditingController loginController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
+
+  final UsuarioWebClient _webClient = UsuarioWebClient();
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -90,7 +94,15 @@ class _CadastroScreenState extends State<CadastroScreen> {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()){}
+                      if (_formKey.currentState!.validate()){
+                        final String nome = nomeController.text;
+                        final String usuario = loginController.text;
+                        final String senha = senhaController.text;
+
+                        final Usuario user = Usuario(nome: nome, loginUsuario: usuario, senhaUsuario: senha);
+
+                        _webClient.cadastrar(user);
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF5BB319),
