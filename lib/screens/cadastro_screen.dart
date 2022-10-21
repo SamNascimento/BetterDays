@@ -1,3 +1,5 @@
+import 'package:better_days/components/progress.dart';
+import 'package:better_days/components/response_dialog.dart';
 import 'package:better_days/http/webclients/usuario_webclient.dart';
 import 'package:better_days/models/usuario.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,10 @@ class _CadastroScreenState extends State<CadastroScreen> {
 
   final UsuarioWebClient _webClient = UsuarioWebClient();
 
+  bool _sending = false;
+
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -94,20 +99,23 @@ class _CadastroScreenState extends State<CadastroScreen> {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()){
+                      if (_formKey.currentState!.validate()) {
                         final String nome = nomeController.text;
                         final String usuario = loginController.text;
                         final String senha = senhaController.text;
 
-                        final Usuario user = Usuario(nome: nome, loginUsuario: usuario, senhaUsuario: senha);
+                        final Usuario user = Usuario(
+                            nome: nome,
+                            loginUsuario: usuario,
+                            senhaUsuario: senha);
 
-                        _webClient.cadastrar(user);
+                        _save(user, context);
                       }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF5BB319),
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 10),
                       textStyle: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -117,11 +125,55 @@ class _CadastroScreenState extends State<CadastroScreen> {
                     child: const Text('CADASTRAR'),
                   ),
                 ),
+                Visibility(
+                  visible: _sending,
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Progress(),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  void _save(Usuario usuarioCriado, BuildContext context) async {
+    await _send(usuarioCriado, context);
+  }
+
+  Future _send(Usuario usuarioCriado, BuildContext context) async {
+    setState(() {
+      _sending = true;
+    });
+
+    await _webClient.cadastrar(usuarioCriado).then((value) {
+      _showSuccesfulMessage(context, "Cadastro realizado com sucesso");
+    }).catchError((e) {
+      _showFailureMessage(context, e.message);
+    }, test: (e) => e is Exception).whenComplete(() {
+      _sending = false;
+    });
+
+    setState(() {});
+  }
+
+  void _showFailureMessage(BuildContext context, String message) {
+    showDialog(
+        context: context,
+        builder: (contextDialog) {
+          // É importante que esse erro genérico aconteça mais embaixo de todos pois é uma chamada encadeada
+          return FailureDialog(message);
+        });
+  }
+
+  void _showSuccesfulMessage(BuildContext context, String message) {
+    showDialog(
+        context: context,
+        builder: (contextDialog) {
+          return SuccessDialog(message);
+        }).then((value) => Navigator.pop(context));
   }
 }

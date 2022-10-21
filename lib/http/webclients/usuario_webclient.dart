@@ -17,6 +17,8 @@ class UsuarioWebClient {
       body: usuarioJson,
     );
 
+    _validarErro(response);
+
     return Usuario.fromJson(jsonDecode(response.body));
   }
 
@@ -31,6 +33,14 @@ class UsuarioWebClient {
       body: usuarioJson,
     );
 
+    _validarErro(response);
+
     return Usuario.fromJson(jsonDecode(response.body));
+  }
+
+  void _validarErro(Response response) {
+    if (response.statusCode != 200) {
+      throw Exception(response.body);
+    }
   }
 }
