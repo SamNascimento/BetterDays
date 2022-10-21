@@ -1,5 +1,6 @@
 import 'package:better_days/screens/cadastro_screen.dart';
 import 'package:better_days/screens/login_screen.dart';
+import 'package:better_days/screens/principal_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       home: const LoginScreen(),
       routes: {
         '/cadastro': (context) => const CadastroScreen(),
+        '/home': (context) => const TelaPrincipalScreen(),
       },
     );
   }

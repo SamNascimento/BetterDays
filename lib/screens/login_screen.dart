@@ -1,3 +1,5 @@
+import 'package:better_days/components/progress.dart';
+import 'package:better_days/components/response_dialog.dart';
 import 'package:better_days/http/webclients/usuario_webclient.dart';
 import 'package:better_days/models/usuario.dart';
 import 'package:flutter/gestures.dart';
@@ -14,9 +16,12 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController loginController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
 
+  bool _sending = false;
+
   final UsuarioWebClient _webClient = UsuarioWebClient();
 
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -79,19 +84,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(12.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()){
+                    if (_formKey.currentState!.validate()) {
                       final String usuario = loginController.text;
                       final String senha = senhaController.text;
 
-                      final Usuario user = Usuario(loginUsuario: usuario, senhaUsuario: senha);
+                      final Usuario user =
+                          Usuario(loginUsuario: usuario, senhaUsuario: senha);
 
-                      _webClient.logar(user);
+                      _logar(user, context);
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF5BB319),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 15),
                     textStyle: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -101,10 +107,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: const Text('LOGAR'),
                 ),
               ),
+              Visibility(
+                visible: _sending,
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Progress(),
+                ),
+              ),
               RichText(
                 text: TextSpan(
                   text: 'Não tem login? Cadastre-se',
-                  style: const TextStyle(color: Color(0xFF5BB319), fontSize: 18),
+                  style:
+                      const TextStyle(color: Color(0xFF5BB319), fontSize: 18),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       Navigator.of(context).pushNamed(
@@ -118,5 +132,36 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void _logar(Usuario usuarioCriado, BuildContext context) async {
+    await _send(usuarioCriado, context);
+  }
+
+  Future _send(Usuario usuarioCriado, BuildContext context) async {
+    setState(() {
+      _sending = true;
+    });
+
+    await _webClient.logar(usuarioCriado).then((value) {
+      Navigator.of(context).pushReplacementNamed(
+        '/home',
+      );
+    }).catchError((e) {
+      _showFailureMessage(context, e.message);
+    }, test: (e) => e is Exception).whenComplete(() {
+      _sending = false;
+    });
+
+    setState(() {});
+  }
+
+  void _showFailureMessage(BuildContext context, String message) {
+    showDialog(
+        context: context,
+        builder: (contextDialog) {
+          // É importante que esse erro genérico aconteça mais embaixo de todos pois é uma chamada encadeada
+          return FailureDialog(message);
+        });
   }
 }
