@@ -16,7 +16,7 @@ class MenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: const Color(0xFF7BFF17),
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(24),
       child: InkWell(
         onTap: () => onClick(),
         child: SizedBox(
@@ -28,7 +28,7 @@ class MenuButton extends StatelessWidget {
               Icon(
                 icone,
                 color: Colors.black,
-                size: 8,
+                size: 48,
               ),
               Text(
                 nome,

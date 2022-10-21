@@ -16,9 +16,9 @@ class AlarmButton extends StatelessWidget {
         onTap: () => onClick(),
         child: SizedBox(
           height: 100,
-          width: 100,
+          width: 320,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -31,7 +31,7 @@ class AlarmButton extends StatelessWidget {
                     ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: const [
                       Text('D',
                           style:
