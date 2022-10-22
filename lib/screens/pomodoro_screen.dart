@@ -88,7 +88,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF304FFE),
-        title: const Text('Better Days'),
+        title: const Text('Pomodoro'),
       ),
       body: Center(
         child: Column(

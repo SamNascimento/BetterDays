@@ -82,7 +82,7 @@ class _RespiracaoScreenState extends State<RespiracaoScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF304FFE),
-        title: const Text('Better Days'),
+        title: const Text('Exercício de respiração'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(40.0),

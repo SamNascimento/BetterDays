@@ -91,7 +91,7 @@ class _TelaPrincipalScreenState extends State<TelaPrincipalScreen> {
                         MenuButton(
                             icone: Icons.sports_gymnastics_outlined,
                             nome: 'Exercícios',
-                            onClick: () {}),
+                            onClick: () => Navigator.pushNamed(context, '/exercicios')),
                         MenuButton(
                             icone: Icons.bookmark_added_outlined,
                             nome: 'Metas',

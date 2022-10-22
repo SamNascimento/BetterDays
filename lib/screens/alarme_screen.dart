@@ -9,7 +9,7 @@ class AlarmeScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xFF304FFE),
-          title: const Text('Better Days'),
+          title: const Text('Alarmes'),
         ),
         body: Center(
           child: Column(
