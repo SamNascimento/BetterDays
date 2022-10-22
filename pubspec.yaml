@@ -32,6 +32,8 @@ dependencies:
   http:
   http_interceptor:
   shared_preferences:
+  vibration:
+  flutter_ringtone_player: ^3.2.0
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,7 +1,6 @@
 import 'package:better_days/components/alarm_button.dart';
 import 'package:better_days/components/menu_button.dart';
 import 'package:better_days/components/resumo_metas_button.dart';
-import 'package:better_days/http/webclients/listametas_webclient.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -69,7 +68,7 @@ class _TelaPrincipalScreenState extends State<TelaPrincipalScreen> {
                         MenuButton(
                             icone: Icons.watch_later_outlined,
                             nome: 'Pomodoro',
-                            onClick: () {}),
+                            onClick: () => Navigator.pushNamed(context, '/pomodoro')),
                         MenuButton(
                             icone: Icons.air_outlined,
                             nome: 'Respiração',
