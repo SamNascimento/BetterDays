@@ -72,7 +72,7 @@ class _TelaPrincipalScreenState extends State<TelaPrincipalScreen> {
                         MenuButton(
                             icone: Icons.air_outlined,
                             nome: 'Respiração',
-                            onClick: () {}),
+                            onClick: () => Navigator.pushNamed(context, '/respiracao')),
                         MenuButton(
                             icone: Icons.alarm, nome: 'Alarmes', onClick: () {}),
                       ],

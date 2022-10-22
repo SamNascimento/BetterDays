@@ -2,6 +2,7 @@ import 'package:better_days/screens/cadastro_screen.dart';
 import 'package:better_days/screens/login_screen.dart';
 import 'package:better_days/screens/pomodoro_screen.dart';
 import 'package:better_days/screens/principal_screen.dart';
+import 'package:better_days/screens/respiracao_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         '/cadastro': (context) => const CadastroScreen(),
         '/home': (context) => const TelaPrincipalScreen(),
         '/pomodoro': (context) => const PomodoroScreen(),
+        '/respiracao': (context) => const RespiracaoScreen(),
       },
     );
   }
