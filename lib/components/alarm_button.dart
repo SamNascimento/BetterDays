@@ -59,8 +59,11 @@ class AlarmButton extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
-                      Text('22:00',
-                          style: TextStyle(color: Colors.white, fontSize: 32)),
+                      Padding(
+                        padding: EdgeInsets.only(right: 16.0),
+                        child: Text('-- : --',
+                            style: TextStyle(color: Colors.white, fontSize: 32)),
+                      ),
                       Icon(Icons.nights_stay_outlined,
                           color: Colors.white, size: 24),
                     ],
@@ -68,8 +71,11 @@ class AlarmButton extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
-                      Text('05:00',
-                          style: TextStyle(color: Colors.white, fontSize: 32)),
+                      Padding(
+                        padding: EdgeInsets.only(right: 16.0),
+                        child: Text('-- : --',
+                            style: TextStyle(color: Colors.white, fontSize: 32)),
+                      ),
                       Icon(Icons.sunny, color: Colors.white, size: 24),
                     ],
                   ),

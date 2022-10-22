@@ -68,13 +68,18 @@ class _TelaPrincipalScreenState extends State<TelaPrincipalScreen> {
                         MenuButton(
                             icone: Icons.watch_later_outlined,
                             nome: 'Pomodoro',
-                            onClick: () => Navigator.pushNamed(context, '/pomodoro')),
+                            onClick: () =>
+                                Navigator.pushNamed(context, '/pomodoro')),
                         MenuButton(
                             icone: Icons.air_outlined,
                             nome: 'Respiração',
-                            onClick: () => Navigator.pushNamed(context, '/respiracao')),
+                            onClick: () =>
+                                Navigator.pushNamed(context, '/respiracao')),
                         MenuButton(
-                            icone: Icons.alarm, nome: 'Alarmes', onClick: () {}),
+                            icone: Icons.alarm,
+                            nome: 'Alarmes',
+                            onClick: () =>
+                                Navigator.pushNamed(context, '/alarme')),
                       ],
                     ),
                   ),
@@ -112,7 +117,10 @@ class _TelaPrincipalScreenState extends State<TelaPrincipalScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: AlarmButton(nome: 'Alarme 1', onClick: () {}),
+                child: AlarmButton(
+                  nome: 'Alarme 1',
+                  onClick: () => Navigator.pushNamed(context, '/alarme'),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),

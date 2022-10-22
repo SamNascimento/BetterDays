@@ -1,3 +1,4 @@
+import 'package:better_days/screens/alarme_screen.dart';
 import 'package:better_days/screens/cadastro_screen.dart';
 import 'package:better_days/screens/login_screen.dart';
 import 'package:better_days/screens/pomodoro_screen.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const TelaPrincipalScreen(),
         '/pomodoro': (context) => const PomodoroScreen(),
         '/respiracao': (context) => const RespiracaoScreen(),
+        '/alarme': (context) => const AlarmeScreen(),
       },
     );
   }
