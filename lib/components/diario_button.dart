@@ -1,30 +1,30 @@
 import 'package:better_days/components/response_dialog.dart';
-import 'package:better_days/http/webclients/listametas_webclient.dart';
-import 'package:better_days/screens/specific_screens/meta_screen.dart';
+import 'package:better_days/http/webclients/diario_webclient.dart';
+import 'package:better_days/screens/specific_screens/diario_screen.dart';
 import 'package:flutter/material.dart';
 
-class MetaButton extends StatefulWidget {
-  final int idMetas;
+class DiarioButton extends StatefulWidget {
+  final int idDiario;
   final int idUsuario;
+  final String dataRegistro;
   final String titulo;
-  final String descricao;
-  bool isConcluido;
+  final String nota;
 
-  MetaButton({
+  DiarioButton({
     Key? key,
-    required this.idMetas,
     required this.idUsuario,
     required this.titulo,
-    required this.descricao,
-    required this.isConcluido,
+    required this.idDiario,
+    required this.dataRegistro,
+    required this.nota,
   }) : super(key: key);
 
   @override
-  State<MetaButton> createState() => _MetaButtonState();
+  State<DiarioButton> createState() => _DiarioButtonState();
 }
 
-class _MetaButtonState extends State<MetaButton> {
-  final ListaMetasWebClient _webClient = ListaMetasWebClient();
+class _DiarioButtonState extends State<DiarioButton> {
+  final DiarioWebClient _webClient = DiarioWebClient();
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +35,34 @@ class _MetaButtonState extends State<MetaButton> {
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: CheckboxListTile(
-              title: Text(
-                widget.titulo,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24),
+            title: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Text(
+                      widget.titulo,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: Text(
+                      widget.dataRegistro.substring(0, 10),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              value: widget.isConcluido,
-              onChanged: (bool? value) {
-                _webClient.alterarConclusaoMeta(widget.idMetas).then((meta) {
-                  setState(() { widget.isConcluido = !widget.isConcluido; });
-                });
-              },
             ),
             backgroundColor: const Color(0xFFFF794A),
           ),
@@ -64,7 +78,7 @@ class _MetaButtonState extends State<MetaButton> {
                 Flexible(
                   child: Center(
                     child: Text(
-                      'Descrição: ${widget.descricao}',
+                      widget.nota,
                       overflow: TextOverflow.clip,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
@@ -84,11 +98,11 @@ class _MetaButtonState extends State<MetaButton> {
                           Navigator.of(context)
                               .push(
                             MaterialPageRoute(
-                              builder: (context) => MetaScreen(
-                                isCriacaoMeta: false,
-                                idMetas: widget.idMetas,
+                              builder: (context) => DiarioScreen(
+                                isCriacaoRegistro: false,
+                                idDiario: widget.idDiario,
                                 titulo: widget.titulo,
-                                descricao: widget.descricao,
+                                nota: widget.nota,
                               ),
                             ),
                           )
@@ -106,18 +120,18 @@ class _MetaButtonState extends State<MetaButton> {
                             vertical: 15,
                           ),
                           textStyle: const TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         child: const Text(
-                          'Editar meta',
+                          'Editar registro',
                           style: TextStyle(color: Colors.black),
                         ),
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          _webClient.deletarMeta(widget.idMetas);
+                          _webClient.deletarAnotacaoDiario(widget.idDiario);
                           _showSuccesfulMessage(context);
                         },
                         style: ElevatedButton.styleFrom(
@@ -130,12 +144,12 @@ class _MetaButtonState extends State<MetaButton> {
                             vertical: 15,
                           ),
                           textStyle: const TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         child: const Text(
-                          'Excluir meta',
+                          'Excluir registro',
                           style: TextStyle(color: Colors.black),
                         ),
                       ),
@@ -154,7 +168,7 @@ class _MetaButtonState extends State<MetaButton> {
     showDialog(
         context: context,
         builder: (contextDialog) {
-          return const SuccessDialog('Meta excluída com sucesso');
+          return const SuccessDialog('Registro excluído com sucesso');
         }).then((value) => Navigator.pop(context));
   }
 }

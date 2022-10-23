@@ -1,21 +1,21 @@
-import 'package:better_days/components/meta_button.dart';
+import 'package:better_days/components/diario_button.dart';
 import 'package:better_days/components/progress.dart';
-import 'package:better_days/http/webclients/listametas_webclient.dart';
-import 'package:better_days/models/listametas.dart';
-import 'package:better_days/screens/specific_screens/meta_screen.dart';
+import 'package:better_days/http/webclients/diario_webclient.dart';
+import 'package:better_days/models/diario.dart';
+import 'package:better_days/screens/specific_screens/diario_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MetasScreen extends StatefulWidget {
-  const MetasScreen({Key? key}) : super(key: key);
+class DiariosScreen extends StatefulWidget {
+  const DiariosScreen({Key? key}) : super(key: key);
 
   @override
-  State<MetasScreen> createState() => _MetasScreenState();
+  State<DiariosScreen> createState() => _DiariosScreenState();
 }
 
-class _MetasScreenState extends State<MetasScreen> {
+class _DiariosScreenState extends State<DiariosScreen> {
   int _idUsuario = 0;
-  final ListaMetasWebClient _webClient = ListaMetasWebClient();
+  final DiarioWebClient _webClient = DiarioWebClient();
 
   void _obterDadosUsuarioLogado() async {
     final prefs = await SharedPreferences.getInstance();
@@ -38,7 +38,7 @@ class _MetasScreenState extends State<MetasScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF304FFE),
-        title: const Text('Metas'),
+        title: const Text('Diário'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -52,8 +52,8 @@ class _MetasScreenState extends State<MetasScreen> {
                     Navigator.of(context)
                         .push(
                       MaterialPageRoute(
-                        builder: (context) => MetaScreen(
-                          isCriacaoMeta: true,
+                        builder: (context) => DiarioScreen(
+                          isCriacaoRegistro: true,
                           idUsuario: _idUsuario,
                         ),
                       ),
@@ -74,7 +74,7 @@ class _MetasScreenState extends State<MetasScreen> {
                     ),
                   ),
                   child: const Text(
-                    'CRIAR META',
+                    'CRIAR REGISTRO',
                     style: TextStyle(color: Colors.black),
                   ),
                 ),
@@ -82,8 +82,8 @@ class _MetasScreenState extends State<MetasScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  FutureBuilder<List<ListaMetas>>(
-                    future: _webClient.obterMetas(_idUsuario),
+                  FutureBuilder<List<Diario>>(
+                    future: _webClient.obterDiario(_idUsuario),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.none:
@@ -96,23 +96,22 @@ class _MetasScreenState extends State<MetasScreen> {
                           break;
 
                         case ConnectionState.done:
-                          final List<ListaMetas> listaMetas =
-                              snapshot.data ?? [];
-                          if (listaMetas.isNotEmpty) {
+                          final List<Diario> diario = snapshot.data ?? [];
+                          if (diario.isNotEmpty) {
                             return ListView.builder(
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                final ListaMetas listaMeta = listaMetas[index];
-                                return MetaButton(
-                                  idMetas: listaMeta.idMetas!,
-                                  idUsuario: listaMeta.idUsuario,
-                                  titulo: listaMeta.titulo,
-                                  descricao: listaMeta.descricao,
-                                  isConcluido: listaMeta.isConcluido,
+                                final Diario registro = diario[index];
+                                return DiarioButton(
+                                  idDiario: registro.idDiario!,
+                                  idUsuario: registro.idUsuario,
+                                  titulo: registro.titulo,
+                                  nota: registro.nota,
+                                  dataRegistro: registro.dataRegistro!,
                                 );
                               },
-                              itemCount: listaMetas.length,
+                              itemCount: diario.length,
                             );
                           }
 
@@ -124,7 +123,7 @@ class _MetasScreenState extends State<MetasScreen> {
                                 Padding(
                                   padding: EdgeInsets.only(top: 24.0),
                                   child: Text(
-                                    'Não há metas registradas',
+                                    'Não há registros no diário',
                                     style: TextStyle(fontSize: 24),
                                   ),
                                 ),
@@ -141,7 +140,7 @@ class _MetasScreenState extends State<MetasScreen> {
                             Padding(
                               padding: EdgeInsets.only(top: 24.0),
                               child: Text(
-                                'Erro ao carregar metas',
+                                'Erro ao carregar registros',
                                 style: TextStyle(fontSize: 24),
                               ),
                             ),

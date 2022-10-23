@@ -1,35 +1,35 @@
 import 'package:better_days/components/progress.dart';
 import 'package:better_days/components/response_dialog.dart';
-import 'package:better_days/http/webclients/listametas_webclient.dart';
-import 'package:better_days/models/listametas.dart';
+import 'package:better_days/http/webclients/diario_webclient.dart';
+import 'package:better_days/models/diario.dart';
 import 'package:flutter/material.dart';
 
-class MetaScreen extends StatefulWidget {
-  int? idMetas;
+class DiarioScreen extends StatefulWidget {
+  int? idDiario;
   int? idUsuario;
   String? titulo;
-  String? descricao;
+  String? nota;
 
-  final bool isCriacaoMeta;
+  final bool isCriacaoRegistro;
 
-  MetaScreen({
+  DiarioScreen({
     Key? key,
-    required this.isCriacaoMeta,
-    this.idMetas,
+    required this.isCriacaoRegistro,
+    this.idDiario,
     this.idUsuario,
     this.titulo,
-    this.descricao,
+    this.nota,
   }) : super(key: key);
 
   @override
-  State<MetaScreen> createState() => _MetaScreenState();
+  State<DiarioScreen> createState() => _DiarioScreenState();
 }
 
-class _MetaScreenState extends State<MetaScreen> {
+class _DiarioScreenState extends State<DiarioScreen> {
   final TextEditingController _tituloController = TextEditingController();
-  final TextEditingController _descricaoController = TextEditingController();
+  final TextEditingController _notaController = TextEditingController();
 
-  final ListaMetasWebClient _webClient = ListaMetasWebClient();
+  final DiarioWebClient _webClient = DiarioWebClient();
 
   bool _sending = false;
 
@@ -39,13 +39,13 @@ class _MetaScreenState extends State<MetaScreen> {
   void initState() {
     super.initState();
 
-    if(!widget.isCriacaoMeta){
+    if (!widget.isCriacaoRegistro) {
       if (widget.titulo != null) {
         _tituloController.text = widget.titulo!;
       }
 
-      if (widget.descricao != null) {
-        _descricaoController.text = widget.descricao!;
+      if (widget.nota != null) {
+        _notaController.text = widget.nota!;
       }
     }
   }
@@ -57,14 +57,15 @@ class _MetaScreenState extends State<MetaScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xFF304FFE),
-          title: const Text('Meta'),
+          title: const Text('Registro'),
         ),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 80.0, bottom: 40.0, left: 12.0, right: 12.0),
+                padding: const EdgeInsets.only(
+                    top: 80.0, bottom: 40.0, left: 12.0, right: 12.0),
                 child: TextFormField(
                   validator: (String? texto) {
                     if (texto != null && texto.isEmpty) {
@@ -85,15 +86,16 @@ class _MetaScreenState extends State<MetaScreen> {
                 child: TextFormField(
                   validator: (String? texto) {
                     if (texto != null && texto.isEmpty) {
-                      return 'Descrição é obrigatória';
+                      return 'Nota é obrigatória';
                     }
                     return null;
                   },
-                  controller: _descricaoController,
+                  controller: _notaController,
                   decoration: const InputDecoration(
-                    labelText: 'Descrição',
+                    labelText: 'Texto',
                     border: OutlineInputBorder(),
-                    contentPadding: EdgeInsets.symmetric(vertical: 120.0, horizontal: 10.0),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 120.0, horizontal: 10.0),
                   ),
                 ),
               ),
@@ -123,34 +125,33 @@ class _MetaScreenState extends State<MetaScreen> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           final String tituloText = _tituloController.text;
-                          final String descricaoText = _descricaoController.text;
+                          final String notaText = _notaController.text;
 
-                          if (widget.isCriacaoMeta) {
+                          if (widget.isCriacaoRegistro) {
                             if (widget.idUsuario == null) {
                               _showFailureMessage(context, 'idUsuario é nulo');
                             } else {
-                              final ListaMetas listaMetas = ListaMetas(
+                              final Diario registro = Diario(
                                 idUsuario: widget.idUsuario!,
                                 titulo: tituloText,
-                                descricao: descricaoText,
-                                isConcluido: false,
+                                nota: notaText,
                               );
 
-                              _criarListaMetas(listaMetas, context, widget.isCriacaoMeta);
+                              _criarRegistroDiario(
+                                  registro, context, widget.isCriacaoRegistro);
                             }
                           } else {
-                            if (widget.idMetas == null) {
-                              _showFailureMessage(context, 'idMetas é nulo');
+                            if (widget.idDiario == null) {
+                              _showFailureMessage(context, 'idDiario é nulo');
                             } else {
-                              final ListaMetas listaMetas = ListaMetas(
+                              final Diario registro = Diario(
                                 idUsuario: 0,
                                 titulo: tituloText,
-                                descricao: descricaoText,
-                                isConcluido: false,
+                                nota: notaText,
                               );
 
-                              _editarListaMetas(
-                                  widget.idMetas!, listaMetas, context, widget.isCriacaoMeta);
+                              _editarRegistroDiario(widget.idDiario!, registro,
+                                  context, widget.isCriacaoRegistro);
                             }
                           }
                         }
@@ -184,17 +185,19 @@ class _MetaScreenState extends State<MetaScreen> {
     );
   }
 
-  void _criarListaMetas(ListaMetas listaMetas, BuildContext context, bool isCriacaoMeta) async {
-    await _enviarCriacao(listaMetas, context, isCriacaoMeta);
+  void _criarRegistroDiario(
+      Diario registro, BuildContext context, bool isCriacaoRegistro) async {
+    await _enviarCriacao(registro, context, isCriacaoRegistro);
   }
 
-  Future _enviarCriacao(ListaMetas listaMetas, BuildContext context, bool isCriacaoMeta) async {
+  Future _enviarCriacao(
+      Diario registro, BuildContext context, bool isCriacaoRegistro) async {
     setState(() {
       _sending = true;
     });
 
-    await _webClient.criarMeta(listaMetas).then((value) {
-      _showSuccesfulMessage(context, isCriacaoMeta);
+    await _webClient.criarAnotacaoDiario(registro).then((value) {
+      _showSuccesfulMessage(context, isCriacaoRegistro);
     }).catchError((e) {
       _showFailureMessage(context, e.message);
     }, test: (e) => e is Exception).whenComplete(() {
@@ -204,19 +207,19 @@ class _MetaScreenState extends State<MetaScreen> {
     setState(() {});
   }
 
-  void _editarListaMetas(
-      int idMetas, ListaMetas listaMetas, BuildContext context, bool isCriacaoMeta) async {
-    await _enviarEdicao(idMetas, listaMetas, context, isCriacaoMeta);
+  void _editarRegistroDiario(int idDiario, Diario registro,
+      BuildContext context, bool isCriacaoRegistro) async {
+    await _enviarEdicao(idDiario, registro, context, isCriacaoRegistro);
   }
 
-  Future _enviarEdicao(
-      int idMetas, ListaMetas listaMetas, BuildContext context, bool isCriacaoMeta) async {
+  Future _enviarEdicao(int idDiario, Diario registro, BuildContext context,
+      bool isCriacaoRegistro) async {
     setState(() {
       _sending = true;
     });
 
-    await _webClient.editarMeta(idMetas, listaMetas).then((value) {
-      _showSuccesfulMessage(context, isCriacaoMeta);
+    await _webClient.editarAnotacaoDiario(idDiario, registro).then((value) {
+      _showSuccesfulMessage(context, isCriacaoRegistro);
     }).catchError((e) {
       _showFailureMessage(context, e.message);
     }, test: (e) => e is Exception).whenComplete(() {
@@ -234,11 +237,13 @@ class _MetaScreenState extends State<MetaScreen> {
         });
   }
 
-  void _showSuccesfulMessage(BuildContext context, bool isCriacaoMeta) {
+  void _showSuccesfulMessage(BuildContext context, bool isCriacaoRegistro) {
     showDialog(
         context: context,
         builder: (contextDialog) {
-          return SuccessDialog(isCriacaoMeta ? 'Meta criada com sucesso' : 'Meta editada com sucesso');
+          return SuccessDialog(isCriacaoRegistro
+              ? 'Registro criado com sucesso'
+              : 'Registro editado com sucesso');
         }).then((value) => Navigator.pop(context));
   }
 }

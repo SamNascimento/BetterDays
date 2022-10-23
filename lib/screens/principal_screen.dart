@@ -99,7 +99,7 @@ class _TelaPrincipalScreenState extends State<TelaPrincipalScreen> {
                         MenuButton(
                             icone: Icons.perm_contact_calendar_outlined,
                             nome: 'Diário',
-                            onClick: () {}),
+                            onClick: () => Navigator.pushNamed(context, '/diario')),
                       ],
                     ),
                   ),

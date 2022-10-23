@@ -1,16 +1,17 @@
 class Diario {
   final int? idDiario;
   final int idUsuario;
-  final DateTime dataRegistro;
+  final String? dataRegistro;
   final String titulo;
   final String nota;
 
-  Diario(
-      {required this.idUsuario,
-      required this.dataRegistro,
-      required this.titulo,
-      required this.nota,
-      this.idDiario});
+  Diario({
+    required this.idUsuario,
+    required this.titulo,
+    required this.nota,
+    this.dataRegistro,
+    this.idDiario,
+  });
 
   @override
   String toString() =>
@@ -25,7 +26,6 @@ class Diario {
 
   Map<String, dynamic> toJson() => {
         'idUsuario': idUsuario,
-        'dataRegistro': dataRegistro,
         'titulo': titulo,
         'nota': nota,
       };
