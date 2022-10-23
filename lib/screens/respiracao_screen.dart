@@ -104,7 +104,7 @@ class _RespiracaoScreenState extends State<RespiracaoScreen> {
                   height: _alturaContainer,
                   child: Center(
                     child: Text(
-                      _cresceu ? 'Inspire' : 'Expire',
+                      _cresceu ? 'Expire' : 'Inspire',
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
