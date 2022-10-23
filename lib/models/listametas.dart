@@ -1,18 +1,19 @@
 class ListaMetas {
   final int? idMetas;
   final int idUsuario;
-  final DateTime dataRegistro;
+  final String? dataRegistro;
   final String titulo;
   final String descricao;
   final bool isConcluido;
 
-  ListaMetas(
-      {required this.idUsuario,
-      required this.dataRegistro,
-      required this.titulo,
-      required this.descricao,
-      required this.isConcluido,
-      this.idMetas});
+  ListaMetas({
+    required this.idUsuario,
+    required this.titulo,
+    required this.descricao,
+    required this.isConcluido,
+    this.idMetas,
+    this.dataRegistro,
+  });
 
   @override
   String toString() =>
@@ -28,9 +29,7 @@ class ListaMetas {
 
   Map<String, dynamic> toJson() => {
         'idUsuario': idUsuario,
-        'dataRegistro': dataRegistro,
         'titulo': titulo,
         'descricao': descricao,
-        'isConcluido': isConcluido,
       };
 }

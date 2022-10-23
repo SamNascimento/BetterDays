@@ -23,7 +23,7 @@ CREATE TABLE diario (
 	CONSTRAINT fk_diario_usuario FOREIGN KEY (idUsuario) REFERENCES usuario (idUsuario)
 );
 
-CREATE TABLE listaMetas (
+CREATE TABLE listametas (
 	idMetas         BIGINT 	    NOT NULL AUTO_INCREMENT,
 	idUsuario       BIGINT 	    NOT NULL,
     dataRegistro    DATETIME    NOT NULL,

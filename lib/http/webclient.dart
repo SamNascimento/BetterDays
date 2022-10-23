@@ -4,6 +4,9 @@ import 'package:http_interceptor/http_interceptor.dart';
 
 const String baseUrl = 'https://samnascimento.dev/api/';
 
-final Client client = InterceptedClient.build(interceptors: [
-  LoggingInterceptor(),
-]);
+final Client client = InterceptedClient.build(
+  interceptors: [
+    LoggingInterceptor(),
+  ],
+  requestTimeout: const Duration(seconds: 10),
+);

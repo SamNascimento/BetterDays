@@ -26,7 +26,7 @@ class _ResumoMetasButtonState extends State<ResumoMetasButton> {
           title: Center(
             child: InkWell(
               child: const Text('Resumo de Metas'),
-              onTap: () {},
+              onTap: () => Navigator.pushNamed(context, '/metas'),
             ),
           ),
           backgroundColor: const Color(0xFFFF794A),
@@ -38,7 +38,7 @@ class _ResumoMetasButtonState extends State<ResumoMetasButton> {
             bottomRight: Radius.circular(24),
           ),
           child: InkWell(
-            onTap: () {},
+            onTap: () => Navigator.pushNamed(context, '/metas'),
             child: FutureBuilder<List<ListaMetas>>(
               future: _webClient.obterMetas(widget.idUsuario),
               builder: (context, snapshot) {
@@ -59,12 +59,21 @@ class _ResumoMetasButtonState extends State<ResumoMetasButton> {
                         itemBuilder: (context, index) {
                           final ListaMetas listaMeta = listaMetas[index];
                           return CheckboxListTile(
-                            title: Text(listaMeta.titulo),
+                            title: Text(
+                              listaMeta.titulo,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 32,
+                              ),
+                            ),
                             value: listaMeta.isConcluido,
                             onChanged: (bool? value) {
                               if (listaMeta.idMetas != null) {
                                 _webClient
-                                    .alterarConclusaoMeta(listaMeta.idMetas!);
+                                    .alterarConclusaoMeta(listaMeta.idMetas!).then((meta) {
+                                      setState(() {});
+                                });
                               }
                             },
                           );

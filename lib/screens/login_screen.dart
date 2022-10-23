@@ -160,7 +160,6 @@ class _LoginScreenState extends State<LoginScreen> {
     showDialog(
         context: context,
         builder: (contextDialog) {
-          // É importante que esse erro genérico aconteça mais embaixo de todos pois é uma chamada encadeada
           return FailureDialog(message);
         });
   }

@@ -2,6 +2,7 @@ import 'package:better_days/screens/alarme_screen.dart';
 import 'package:better_days/screens/cadastro_screen.dart';
 import 'package:better_days/screens/exercicios_screen.dart';
 import 'package:better_days/screens/login_screen.dart';
+import 'package:better_days/screens/metas_screen.dart';
 import 'package:better_days/screens/pomodoro_screen.dart';
 import 'package:better_days/screens/principal_screen.dart';
 import 'package:better_days/screens/respiracao_screen.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/respiracao': (context) => const RespiracaoScreen(),
         '/alarme': (context) => const AlarmeScreen(),
         '/exercicios': (context) => const ExerciciosScreen(),
+        '/metas': (context) => const MetasScreen(),
       },
     );
   }

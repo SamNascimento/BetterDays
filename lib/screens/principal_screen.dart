@@ -95,7 +95,7 @@ class _TelaPrincipalScreenState extends State<TelaPrincipalScreen> {
                         MenuButton(
                             icone: Icons.bookmark_added_outlined,
                             nome: 'Metas',
-                            onClick: () {}),
+                            onClick: () => Navigator.pushNamed(context, '/metas')),
                         MenuButton(
                             icone: Icons.perm_contact_calendar_outlined,
                             nome: 'Diário',
