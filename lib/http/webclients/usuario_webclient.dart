@@ -7,6 +7,7 @@ import 'package:http_interceptor/http_interceptor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UsuarioWebClient {
+  // Executa o login e retorna os dados do usuário logado caso a ação ocorra com sucesso
   Future<Usuario> logar(Usuario usuario) async {
     final String usuarioJson = jsonEncode(usuario.toJson());
 
@@ -30,6 +31,7 @@ class UsuarioWebClient {
     return usuarioLogado;
   }
 
+  // Executa o cadastro e retorna os dados do usuário logado caso a ação ocorra com sucesso
   Future<Usuario> cadastrar(Usuario usuario) async {
     final String usuarioJson = jsonEncode(usuario.toJson());
 

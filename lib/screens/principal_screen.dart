@@ -15,6 +15,7 @@ class _TelaPrincipalScreenState extends State<TelaPrincipalScreen> {
   int _idUsuario = 0;
   String _nome = '';
 
+  // Obtém os dados do usuário logado de forma local, sem necessitar de uma nova chamada a API
   void _obterDadosUsuarioLogado() async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -57,6 +58,7 @@ class _TelaPrincipalScreenState extends State<TelaPrincipalScreen> {
                   ),
                 ),
               ),
+              // Cria os botões de navegação para as demais telas
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -122,6 +124,7 @@ class _TelaPrincipalScreenState extends State<TelaPrincipalScreen> {
                   onClick: () => Navigator.pushNamed(context, '/alarme'),
                 ),
               ),
+              // Cria um card com um resumo das metas atuais
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ResumoMetasButton(idUsuario: _idUsuario),

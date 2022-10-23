@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 
 class ListaMetasWebClient {
+  // Busca os dados de uma meta apartir do id dela e retorna os dados em caso de exito
   Future<ListaMetas> obterMeta(int idMetas) async {
     final Response response = await client.get(
       '${baseUrl}meta/$idMetas'.toUri(),
@@ -16,6 +17,7 @@ class ListaMetasWebClient {
     return ListaMetas.fromJson(jsonDecode(response.body));
   }
 
+  // Obtém uma lista de Metas que tenham relação com aquele usuário
   Future<List<ListaMetas>> obterMetas(int idUsuario) async {
     final Response response = await client.get(
       '${baseUrl}meta/usuario/$idUsuario'.toUri(),
@@ -30,6 +32,7 @@ class ListaMetasWebClient {
     return listaMetas;
   }
 
+  // Executa o cadastro e retorna os dados da meta caso a ação ocorra com sucesso
   Future<ListaMetas> criarMeta(ListaMetas listaMetas) async {
     final String listaMetasJson = jsonEncode(listaMetas.toJson());
 
@@ -46,6 +49,7 @@ class ListaMetasWebClient {
     return ListaMetas.fromJson(jsonDecode(response.body));
   }
 
+  // Executa a edição e retorna os dados da meta caso a ação ocorra com sucesso
   Future<ListaMetas> editarMeta(int idMetas, ListaMetas listaMetas) async {
     final String listaMetasJson = jsonEncode(listaMetas.toJson());
 
@@ -62,6 +66,7 @@ class ListaMetasWebClient {
     return ListaMetas.fromJson(jsonDecode(response.body));
   }
 
+  // Altera o status de conclusão de uma meta baseado no ID dela
   Future<ListaMetas> alterarConclusaoMeta(int idMetas) async {
     final Response response = await client.put(
       '${baseUrl}meta/changeconclusao/$idMetas'.toUri(),
@@ -72,6 +77,7 @@ class ListaMetasWebClient {
     return ListaMetas.fromJson(jsonDecode(response.body));
   }
 
+  // Deleta uma meta
   Future deletarMeta(int idMetas) async {
     final Response response = await client.delete(
       '${baseUrl}meta/deletar/$idMetas'.toUri(),

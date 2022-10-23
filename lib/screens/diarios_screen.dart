@@ -15,8 +15,11 @@ class DiariosScreen extends StatefulWidget {
 
 class _DiariosScreenState extends State<DiariosScreen> {
   int _idUsuario = 0;
+
+  // Webclient para fazer comunicação com a API
   final DiarioWebClient _webClient = DiarioWebClient();
 
+  // Obtém os dados do usuário logado de forma local, sem necessitar de uma nova chamada a API
   void _obterDadosUsuarioLogado() async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -49,6 +52,7 @@ class _DiariosScreenState extends State<DiariosScreen> {
                 padding: const EdgeInsets.only(top: 32.0, bottom: 32.0),
                 child: ElevatedButton(
                   onPressed: () {
+                    // Redireciona para a tela de Diário caso o botão seja pressionado
                     Navigator.of(context)
                         .push(
                       MaterialPageRoute(
@@ -82,6 +86,7 @@ class _DiariosScreenState extends State<DiariosScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  //Cria uma lista de cards para cada diário encontrado na API relacionado aquele Usuário
                   FutureBuilder<List<Diario>>(
                     future: _webClient.obterDiario(_idUsuario),
                     builder: (context, snapshot) {

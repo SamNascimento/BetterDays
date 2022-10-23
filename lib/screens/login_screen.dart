@@ -13,11 +13,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  // Controladores para checar e caputrar os dados dos campos
   TextEditingController loginController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
 
+  // Validador de estado de loading
   bool _sending = false;
 
+  // Webclient para fazer comunicação com a API
   final UsuarioWebClient _webClient = UsuarioWebClient();
 
   final _formKey = GlobalKey<FormState>();
@@ -47,6 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(12.0),
                 child: TextFormField(
                   validator: (String? texto) {
+                    // Verifica se os campos foram preenchidos corretamente
                     if (texto != null && texto.isEmpty) {
                       return 'Usuário é obrigatório';
                     }
@@ -67,6 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   enableSuggestions: false,
                   autocorrect: false,
                   validator: (String? texto) {
+                    // Verifica se os campos foram preenchidos corretamente
                     if (texto != null && texto.isEmpty) {
                       return 'Senha é obrigatória';
                     }
@@ -84,6 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(12.0),
                 child: ElevatedButton(
                   onPressed: () {
+                    // Verifica se os campos foram preenchidos corretamente
                     if (_formKey.currentState!.validate()) {
                       final String usuario = loginController.text;
                       final String senha = senhaController.text;
@@ -91,6 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       final Usuario user =
                           Usuario(loginUsuario: usuario, senhaUsuario: senha);
 
+                      // Executa a chamada do método de login
                       _logar(user, context);
                     }
                   },
@@ -107,6 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: const Text('LOGAR'),
                 ),
               ),
+              // Define que o loading será exibido enquanto o status da requisição não concluir
               Visibility(
                 visible: _sending,
                 child: const Padding(
@@ -121,6 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const TextStyle(color: Color(0xFF5BB319), fontSize: 18),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
+                    // Redireciona para a tela de cadastro
                       Navigator.of(context).pushNamed(
                         '/cadastro',
                       );

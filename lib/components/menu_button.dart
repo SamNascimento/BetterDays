@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Cria um card para cada item do menu principal
 class MenuButton extends StatelessWidget {
   final IconData icone;
   final String nome;

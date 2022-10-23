@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Cria um card com as informações de algum exercício
 class ExerciciosButton extends StatelessWidget {
   final String image;
   final String nome;

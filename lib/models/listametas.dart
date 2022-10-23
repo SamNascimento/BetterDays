@@ -19,6 +19,7 @@ class ListaMetas {
   String toString() =>
       'Diário {idMetas: $idMetas, idUsuario: $idUsuario, dataRegistro: $dataRegistro, titulo: $titulo, descricao: $descricao, isConcluido: $isConcluido}';
 
+  // Transforma um JSON na classe e captura seus valores
   ListaMetas.fromJson(Map<String, dynamic> json)
       : idMetas = json['idMetas'],
         idUsuario = json['idUsuario'],
@@ -27,6 +28,7 @@ class ListaMetas {
         descricao = json['descricao'],
         isConcluido = json['isConcluido'];
 
+  // Transforma a classe em um JSON
   Map<String, dynamic> toJson() => {
         'idUsuario': idUsuario,
         'titulo': titulo,

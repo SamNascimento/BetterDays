@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Cria um card de alarm para ser exibido na home
 class AlarmButton extends StatelessWidget {
   final String nome;
   final Function onClick;
@@ -13,6 +14,7 @@ class AlarmButton extends StatelessWidget {
       color: const Color(0xFF5BB319),
       borderRadius: BorderRadius.circular(24),
       child: InkWell(
+        // Define que o card possa executar uma ação ao ser clicado
         onTap: () => onClick(),
         child: SizedBox(
           height: 100,

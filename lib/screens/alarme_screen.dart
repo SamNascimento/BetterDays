@@ -18,6 +18,7 @@ class AlarmeScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(32.0),
                 child: ElevatedButton(
+                  // Faz com que o aplicativo padrão de alarme seja aberto quando esse botão é pressionado
                   onPressed: FlutterAlarmClock.showAlarms,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF5BB319),

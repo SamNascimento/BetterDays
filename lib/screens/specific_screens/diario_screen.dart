@@ -10,6 +10,7 @@ class DiarioScreen extends StatefulWidget {
   String? titulo;
   String? nota;
 
+  // Verifica se essa tela será destinada a criar uma meta ou a editar uma, executando diferentes ações dependendo do cenário
   final bool isCriacaoRegistro;
 
   DiarioScreen({
@@ -26,11 +27,13 @@ class DiarioScreen extends StatefulWidget {
 }
 
 class _DiarioScreenState extends State<DiarioScreen> {
+  // Controladores para checar e caputrar os dados dos campos
   final TextEditingController _tituloController = TextEditingController();
   final TextEditingController _notaController = TextEditingController();
 
   final DiarioWebClient _webClient = DiarioWebClient();
 
+  // Validador de estado de loading
   bool _sending = false;
 
   final _formKey = GlobalKey<FormState>();
@@ -39,6 +42,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
   void initState() {
     super.initState();
 
+    // Caso seja uma tela de edição ele pega os atuais valores da meta e exibe para o usuário em um autopreenchimento dos campos
     if (!widget.isCriacaoRegistro) {
       if (widget.titulo != null) {
         _tituloController.text = widget.titulo!;
@@ -68,6 +72,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
                     top: 80.0, bottom: 40.0, left: 12.0, right: 12.0),
                 child: TextFormField(
                   validator: (String? texto) {
+                    // Verifica se os campos foram preenchidos corretamente
                     if (texto != null && texto.isEmpty) {
                       return 'Título é obrigatório';
                     }
@@ -85,6 +90,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
                 padding: const EdgeInsets.all(12.0),
                 child: TextFormField(
                   validator: (String? texto) {
+                    // Verifica se os campos foram preenchidos corretamente
                     if (texto != null && texto.isEmpty) {
                       return 'Nota é obrigatória';
                     }
@@ -105,6 +111,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: ElevatedButton(
+                      // Sai da tela atual e cancela a ação de criação/edição
                       onPressed: () => Navigator.pop(context),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF5BB319),
@@ -123,6 +130,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
                     padding: const EdgeInsets.all(12.0),
                     child: ElevatedButton(
                       onPressed: () {
+                        // Caso todos os campos tiverem corretos o programa segue com a ação de criação ou edição
                         if (_formKey.currentState!.validate()) {
                           final String tituloText = _tituloController.text;
                           final String notaText = _notaController.text;
@@ -137,6 +145,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
                                 nota: notaText,
                               );
 
+                              // Executa a chamada do método de criação
                               _criarRegistroDiario(
                                   registro, context, widget.isCriacaoRegistro);
                             }
@@ -150,6 +159,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
                                 nota: notaText,
                               );
 
+                              // Executa a chamada do método de edição
                               _editarRegistroDiario(widget.idDiario!, registro,
                                   context, widget.isCriacaoRegistro);
                             }
@@ -171,6 +181,7 @@ class _DiarioScreenState extends State<DiarioScreen> {
                   ),
                 ],
               ),
+              // Define que o loading será exibido enquanto o status da requisição não concluir
               Visibility(
                 visible: _sending,
                 child: const Padding(

@@ -12,6 +12,7 @@ class RespiracaoScreen extends StatefulWidget {
 class _RespiracaoScreenState extends State<RespiracaoScreen> {
   Timer? _contagem;
 
+  // Define o tamanho inicial do texto e do container
   double _tamanhoTexto = 48;
   double _alturaContainer = 100;
   double _larguraContainer = 250;
@@ -24,6 +25,8 @@ class _RespiracaoScreenState extends State<RespiracaoScreen> {
   Duration _duracaoContagem = const Duration(seconds: 5);
   final Duration _duracaoZerada = const Duration(seconds: 0);
 
+
+  // Aumenta o tamanho do texto e do container gradativamente e depois os faz diminuir
   void _atualizarTamanho() async {
     if (_iniciouContagem == true) {
       return;
@@ -50,11 +53,13 @@ class _RespiracaoScreenState extends State<RespiracaoScreen> {
     });
   }
 
+  // Começa a contagem regressiva
   void _iniciarContagem() {
     _contagem = Timer.periodic(
         const Duration(seconds: 1), (Timer timer) => _setContagem());
   }
 
+  // Acompanha a contagem para verificar se a mesma já chegou a zero, e para ela nessas condições
   void _setContagem() {
     setState(() {
       if (_duracaoContagem == _duracaoZerada) {

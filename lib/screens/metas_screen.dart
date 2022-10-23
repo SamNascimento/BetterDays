@@ -15,8 +15,11 @@ class MetasScreen extends StatefulWidget {
 
 class _MetasScreenState extends State<MetasScreen> {
   int _idUsuario = 0;
+
+  // Webclient para fazer comunicação com a API
   final ListaMetasWebClient _webClient = ListaMetasWebClient();
 
+  // Obtém os dados do usuário logado de forma local, sem necessitar de uma nova chamada a API
   void _obterDadosUsuarioLogado() async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -48,6 +51,7 @@ class _MetasScreenState extends State<MetasScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 32.0, bottom: 32.0),
                 child: ElevatedButton(
+                  // Redireciona para a tela de Meta caso o botão seja pressionado
                   onPressed: () {
                     Navigator.of(context)
                         .push(
@@ -82,6 +86,7 @@ class _MetasScreenState extends State<MetasScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  //Cria uma lista de cards para cada meta encontrado na API relacionado aquele Usuário
                   FutureBuilder<List<ListaMetas>>(
                     future: _webClient.obterMetas(_idUsuario),
                     builder: (context, snapshot) {

@@ -14,6 +14,7 @@ class PomodoroScreen extends StatefulWidget {
 class _PomodoroScreenState extends State<PomodoroScreen> {
   Timer? contagemRegressiva;
 
+  // Seta o tempo inicial da contagem
   int hora = 0;
   int minuto = 40;
   int segundos = 30;
@@ -21,15 +22,18 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
   Duration duracao = const Duration();
   Duration duracaoZerada = const Duration(hours: 0, minutes: 0, seconds: 0);
 
+  // Começa a contagem regressiva
   void comecarContagem() {
     contagemRegressiva =
         Timer.periodic(const Duration(seconds: 1), (Timer timer) => setContagem());
   }
 
+  // Para a contagem
   void pararContagem() {
     setState(() => contagemRegressiva!.cancel());
   }
 
+  // Acompanha a contagem para verificar se a mesma já chegou a zero, e para ela nessas condições
   void setContagem() {
     setState(() {
       if (duracao == duracaoZerada) {
@@ -48,6 +52,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
     });
   }
 
+  // Executa alerta vribatório quando a contagem zera
   void vibrarAlerta() async {
     if (await Vibration.hasVibrator() ?? false) {
       if (await Vibration.hasCustomVibrationsSupport() ?? false) {
@@ -62,6 +67,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
     }
   }
 
+  // Executa alerta sonoro, caso o celular não esteja no silencioso, quando a contagem zera
   void tocarAlerta() async {
     FlutterRingtonePlayer.play(
       android: AndroidSounds.notification,
@@ -80,6 +86,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
   Widget build(BuildContext context) {
     duracao = Duration(hours: hora, minutes: minuto, seconds: segundos);
 
+    // Pega o valor da contagem em forma de String para ser exibido e dar feedback ao usuário
     String strDigits(int n) => n.toString().padLeft(2, '0');
     final horaString = strDigits(duracao.inHours.remainder(24));
     final minutoString = strDigits(duracao.inMinutes.remainder(60));
@@ -189,6 +196,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
+                // Botão que inicia a contagem caso essa já não esteja iniciada
                 onPressed: () {
                   if (contagemRegressiva != null) {
                     if (contagemRegressiva!.isActive) {
@@ -215,6 +223,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
+              // Para a contagem
               child: ElevatedButton(
                 onPressed: (){
                   if (contagemRegressiva == null || contagemRegressiva!.isActive) {

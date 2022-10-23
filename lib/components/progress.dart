@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Exibe uma animação de carregamento
 class Progress extends StatelessWidget {
 
   const Progress({Key? key}) : super(key: key);

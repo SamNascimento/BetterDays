@@ -3,6 +3,7 @@ import 'package:better_days/http/webclients/diario_webclient.dart';
 import 'package:better_days/screens/specific_screens/diario_screen.dart';
 import 'package:flutter/material.dart';
 
+// Cria um card com as informações de um registro específico do diário
 class DiarioButton extends StatefulWidget {
   final int idDiario;
   final int idUsuario;

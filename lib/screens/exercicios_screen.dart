@@ -25,6 +25,7 @@ class ExerciciosScreen extends StatelessWidget {
               image: 'assets/images/prancha.png',
               nome: 'Prancha',
               boxFit: BoxFit.cover,
+              // Ao ser pressionado esse botão cria a tela daquele exercício e encaminha o usuário para a mesma
               onClick: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ExercicioScreen(
@@ -40,6 +41,7 @@ class ExerciciosScreen extends StatelessWidget {
               image: 'assets/images/ponte.png',
               nome: 'Ponte',
               boxFit: BoxFit.fitHeight,
+              // Ao ser pressionado esse botão cria a tela daquele exercício e encaminha o usuário para a mesma
               onClick: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ExercicioScreen(
@@ -55,6 +57,7 @@ class ExerciciosScreen extends StatelessWidget {
               image: 'assets/images/alongamento_de_joelho.png',
               nome: 'Alongamento de Joelho',
               boxFit: BoxFit.fitHeight,
+              // Ao ser pressionado esse botão cria a tela daquele exercício e encaminha o usuário para a mesma
               onClick: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ExercicioScreen(
@@ -70,6 +73,7 @@ class ExerciciosScreen extends StatelessWidget {
               image: 'assets/images/alongamento_de_dorsal.png',
               nome: 'Alongamento de Dorsal',
               boxFit: BoxFit.fitHeight,
+              // Ao ser pressionado esse botão cria a tela daquele exercício e encaminha o usuário para a mesma
               onClick: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ExercicioScreen(

@@ -24,6 +24,7 @@ class ExercicioScreen extends StatefulWidget {
 class _ExercicioScreenState extends State<ExercicioScreen> {
   Timer? _contagem;
 
+  // Seta o tempo inicial da contagem
   int _segundos = 60;
 
   bool _contagemIniciou = false;
@@ -31,6 +32,7 @@ class _ExercicioScreenState extends State<ExercicioScreen> {
   Duration _duracaoContagem = const Duration(seconds: 60);
   final Duration _duracaoZerada = const Duration(seconds: 0);
 
+  // Começa a contagem regressiva
   void _iniciarContagem() {
     if (_contagemIniciou == true) {
       return;
@@ -40,6 +42,7 @@ class _ExercicioScreenState extends State<ExercicioScreen> {
         const Duration(seconds: 1), (Timer timer) => _setContagem());
   }
 
+  // Acompanha a contagem para verificar se a mesma já chegou a zero, e para ela nessas condições
   void _setContagem() {
     setState(() {
       if (_duracaoContagem == _duracaoZerada) {

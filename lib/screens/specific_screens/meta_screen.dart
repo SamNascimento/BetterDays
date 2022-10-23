@@ -10,6 +10,7 @@ class MetaScreen extends StatefulWidget {
   String? titulo;
   String? descricao;
 
+  // Verifica se essa tela será destinada a criar uma meta ou a editar uma, executando diferentes ações dependendo do cenário
   final bool isCriacaoMeta;
 
   MetaScreen({
@@ -26,11 +27,13 @@ class MetaScreen extends StatefulWidget {
 }
 
 class _MetaScreenState extends State<MetaScreen> {
+  // Controladores para checar e caputrar os dados dos campos
   final TextEditingController _tituloController = TextEditingController();
   final TextEditingController _descricaoController = TextEditingController();
 
   final ListaMetasWebClient _webClient = ListaMetasWebClient();
 
+  // Validador de estado de loading
   bool _sending = false;
 
   final _formKey = GlobalKey<FormState>();
@@ -39,6 +42,7 @@ class _MetaScreenState extends State<MetaScreen> {
   void initState() {
     super.initState();
 
+    // Caso seja uma tela de edição ele pega os atuais valores da meta e exibe para o usuário em um autopreenchimento dos campos
     if(!widget.isCriacaoMeta){
       if (widget.titulo != null) {
         _tituloController.text = widget.titulo!;
@@ -67,6 +71,7 @@ class _MetaScreenState extends State<MetaScreen> {
                 padding: const EdgeInsets.only(top: 80.0, bottom: 40.0, left: 12.0, right: 12.0),
                 child: TextFormField(
                   validator: (String? texto) {
+                    // Verifica se os campos foram preenchidos corretamente
                     if (texto != null && texto.isEmpty) {
                       return 'Título é obrigatório';
                     }
@@ -84,6 +89,7 @@ class _MetaScreenState extends State<MetaScreen> {
                 padding: const EdgeInsets.all(12.0),
                 child: TextFormField(
                   validator: (String? texto) {
+                    // Verifica se os campos foram preenchidos corretamente
                     if (texto != null && texto.isEmpty) {
                       return 'Descrição é obrigatória';
                     }
@@ -103,6 +109,7 @@ class _MetaScreenState extends State<MetaScreen> {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: ElevatedButton(
+                      // Sai da tela atual e cancela a ação de criação/edição
                       onPressed: () => Navigator.pop(context),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF5BB319),
@@ -121,6 +128,7 @@ class _MetaScreenState extends State<MetaScreen> {
                     padding: const EdgeInsets.all(12.0),
                     child: ElevatedButton(
                       onPressed: () {
+                        // Caso todos os campos tiverem corretos o programa segue com a ação de criação ou edição
                         if (_formKey.currentState!.validate()) {
                           final String tituloText = _tituloController.text;
                           final String descricaoText = _descricaoController.text;
@@ -136,6 +144,7 @@ class _MetaScreenState extends State<MetaScreen> {
                                 isConcluido: false,
                               );
 
+                              // Executa a chamada do método de criação
                               _criarListaMetas(listaMetas, context, widget.isCriacaoMeta);
                             }
                           } else {
@@ -149,6 +158,7 @@ class _MetaScreenState extends State<MetaScreen> {
                                 isConcluido: false,
                               );
 
+                              // Executa a chamada do método de edição
                               _editarListaMetas(
                                   widget.idMetas!, listaMetas, context, widget.isCriacaoMeta);
                             }
@@ -170,6 +180,7 @@ class _MetaScreenState extends State<MetaScreen> {
                   ),
                 ],
               ),
+              // Define que o loading será exibido enquanto o status da requisição não concluir
               Visibility(
                 visible: _sending,
                 child: const Padding(

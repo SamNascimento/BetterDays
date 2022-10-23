@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Exibe um dialog de sucesso ou falha com os dados passados para o construtor
 class ResponseDialog extends StatelessWidget {
   final String title;
   final String message;

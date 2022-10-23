@@ -12,12 +12,15 @@ class CadastroScreen extends StatefulWidget {
 }
 
 class _CadastroScreenState extends State<CadastroScreen> {
+  // Controladores para checar e caputrar os dados dos campos
   TextEditingController nomeController = TextEditingController();
   TextEditingController loginController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
 
+  // Webclient para fazer comunicação com a API
   final UsuarioWebClient _webClient = UsuarioWebClient();
 
+  // Validador de estado de loading
   bool _sending = false;
 
   final _formKey = GlobalKey<FormState>();
@@ -42,6 +45,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     validator: (String? texto) {
+                      // Verifica se os campos foram preenchidos corretamente
                       if (texto != null && texto.isEmpty) {
                         return 'Nome é obrigatório';
                       }
@@ -59,6 +63,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     validator: (String? texto) {
+                      // Verifica se os campos foram preenchidos corretamente
                       if (texto != null && texto.isEmpty) {
                         return 'Usuário é obrigatório';
                       }
@@ -79,6 +84,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                     enableSuggestions: false,
                     autocorrect: false,
                     validator: (String? texto) {
+                      // Verifica se os campos foram preenchidos corretamente
                       if (texto != null && texto.isEmpty) {
                         return 'Senha é obrigatória';
                       }
@@ -99,6 +105,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
+                      // Verifica se os campos foram preenchidos corretamente
                       if (_formKey.currentState!.validate()) {
                         final String nome = nomeController.text;
                         final String usuario = loginController.text;
@@ -109,6 +116,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             loginUsuario: usuario,
                             senhaUsuario: senha);
 
+                        // Executa a chamada do método de cadastro
                         _save(user, context);
                       }
                     },
@@ -125,6 +133,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                     child: const Text('CADASTRAR'),
                   ),
                 ),
+                // Define que o loading será exibido enquanto o status da requisição não concluir
                 Visibility(
                   visible: _sending,
                   child: const Padding(

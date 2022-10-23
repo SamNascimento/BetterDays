@@ -3,6 +3,7 @@ import 'package:better_days/http/webclients/listametas_webclient.dart';
 import 'package:better_days/screens/specific_screens/meta_screen.dart';
 import 'package:flutter/material.dart';
 
+// Cria um card com os dados de uma meta específica
 class MetaButton extends StatefulWidget {
   final int idMetas;
   final int idUsuario;

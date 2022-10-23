@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 
+// Classe usada para testes afim de visualizar o que estava sendo enviado e o que estava sendo recebido
 class LoggingInterceptor implements InterceptorContract {
   @override
   Future<RequestData> interceptRequest({required RequestData data}) async {

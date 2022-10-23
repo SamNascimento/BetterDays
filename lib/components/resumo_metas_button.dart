@@ -3,6 +3,7 @@ import 'package:better_days/http/webclients/listametas_webclient.dart';
 import 'package:better_days/models/listametas.dart';
 import 'package:flutter/material.dart';
 
+// Cria um card com uma lista de metas resumidas para ser exibido na home
 class ResumoMetasButton extends StatefulWidget {
   final int idUsuario;
 
