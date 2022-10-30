@@ -5,13 +5,17 @@ class MenuButton extends StatelessWidget {
   final IconData icone;
   final String nome;
   final Function onClick;
+  final double? height;
+  final double? width;
 
-  const MenuButton(
-      {Key? key,
-        required this.icone,
-        required this.nome,
-        required this.onClick})
-      : super(key: key);
+  const MenuButton({
+    Key? key,
+    required this.icone,
+    required this.nome,
+    required this.onClick,
+    this.height,
+    this.width,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +25,8 @@ class MenuButton extends StatelessWidget {
       child: InkWell(
         onTap: () => onClick(),
         child: SizedBox(
-          height: 100,
-          width: 100,
+          height: height ?? 100,
+          width: width ?? 100,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

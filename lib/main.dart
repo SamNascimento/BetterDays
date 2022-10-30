@@ -1,4 +1,5 @@
 import 'package:better_days/screens/alarme_screen.dart';
+import 'package:better_days/screens/ambientais_screen.dart';
 import 'package:better_days/screens/cadastro_screen.dart';
 import 'package:better_days/screens/diarios_screen.dart';
 import 'package:better_days/screens/exercicios_screen.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/exercicios': (context) => const ExerciciosScreen(),
         '/metas': (context) => const MetasScreen(),
         '/diario': (context) => const DiariosScreen(),
+        '/ambiental': (context) => const AmbientaisScreen(),
       },
     );
   }

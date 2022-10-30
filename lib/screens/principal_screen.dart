@@ -93,16 +93,40 @@ class _TelaPrincipalScreenState extends State<TelaPrincipalScreen> {
                         MenuButton(
                             icone: Icons.sports_gymnastics_outlined,
                             nome: 'Exercícios',
-                            onClick: () => Navigator.pushNamed(context, '/exercicios')),
+                            onClick: () =>
+                                Navigator.pushNamed(context, '/exercicios')),
                         MenuButton(
                             icone: Icons.bookmark_added_outlined,
                             nome: 'Metas',
-                            onClick: () => Navigator.pushNamed(context, '/metas')),
+                            onClick: () =>
+                                Navigator.pushNamed(context, '/metas')),
                         MenuButton(
                             icone: Icons.perm_contact_calendar_outlined,
                             nome: 'Diário',
-                            onClick: () => Navigator.pushNamed(context, '/diario')),
+                            onClick: () =>
+                                Navigator.pushNamed(context, '/diario')),
                       ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 350,
+                      height: 100,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          MenuButton(
+                            icone: Icons.forest_outlined,
+                            nome: 'Exercícios ambientais',
+                            onClick: () =>
+                                Navigator.pushNamed(context, '/ambiental'),
+                            width: 350,
+                            height: 100,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

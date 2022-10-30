@@ -11,7 +11,7 @@ class DiarioButton extends StatefulWidget {
   final String titulo;
   final String nota;
 
-  DiarioButton({
+  const DiarioButton({
     Key? key,
     required this.idUsuario,
     required this.titulo,
